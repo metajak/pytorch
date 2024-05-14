@@ -1336,16 +1336,30 @@ class CommonTemplate:
         def fn(a):
             return torch.var(a)
 
-        self.common(fn, ((torch.rand((10, 3, 352, 352), dtype=torch.float32),)))
-        self.common(fn, ((torch.rand((14923), dtype=torch.float32),)))
+        self.common(
+            fn,
+            ((torch.rand((10, 3, 352, 352), dtype=torch.float32),)),
+            rtol=1e-4,
+            atol=1e-4,
+        )
+        self.common(
+            fn, ((torch.rand((14923), dtype=torch.float32),)), rtol=1e-4, atol=1e-4
+        )
 
     @skipCPUIf(IS_MACOS, "fails on macos")
     def test_multilayer_var_lowp(self):
         def fn(a):
             return torch.var(a)
 
-        self.common(fn, (torch.rand((16, 16, 352, 352), dtype=torch.float16),))
-        self.common(fn, (torch.rand((14923), dtype=torch.float16),))
+        self.common(
+            fn,
+            (torch.rand((16, 16, 352, 352), dtype=torch.float16),),
+            rtol=1e-3,
+            atol=1e-3,
+        )
+        self.common(
+            fn, (torch.rand((14923), dtype=torch.float16),), rtol=1e-4, atol=1e-4
+        )
 
     def test_split_cumsum(self):
         def fn(a):

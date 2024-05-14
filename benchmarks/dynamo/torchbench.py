@@ -442,6 +442,7 @@ def torchbench_main():
     original_dir = setup_torchbench_cwd()
     logging.basicConfig(level=logging.WARNING)
     warnings.filterwarnings("ignore")
+    print("====ATEN_CPU_CAPABILITY=== ", os.getenv("ATEN_CPU_CAPABILITY"))
     main(TorchBenchmarkRunner(), original_dir)
 
 
